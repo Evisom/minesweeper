@@ -18,17 +18,20 @@ const printMap = (arr) => { // function that prints map in an understandable way
 }
 
 const generateMap = (width, height, bombs) => {
+    if (!width || !height || !bombs) {
+        return [false, "[ERR] undefined values"]
+    }
     if (width < 4) { // check values
-        return "[ERR] width can not be less than 4"
+        return [false, "[ERR] width can not be less than 4"]
     }
     if (height < 4) {
-        return "[ERR] height can not be less than 4"
+        return [false, "[ERR] height can not be less than 4"]
     }
     if (bombs <= 0) {
-        return "[ERR] you need at least one bomb"
+        return [false, "[ERR] you need at least one bomb"]
     }
     if (width*height <= bombs) {
-        return "[ERR] too much bombs"
+        return [false, "[ERR] too much bombs"]
     }
 
     let map = []
