@@ -1,0 +1,14 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "author": "Dmitriy Shishmintsev",
+  "license": "ISC",
+  "dependencies": {
+    "mocha": "^9.1.3"
+  }
+}
