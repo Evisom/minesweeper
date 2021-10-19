@@ -7,6 +7,16 @@ const isUnique = (array , element) => { // function to check is bomb position un
     return true
 }
 
+const printMap = (arr) => { // function that prints map in an understandable way
+    for (let i = 0; i < arr.length; i++) {
+        let row = ""
+        for (let j = 0; j < arr[i].length; j++) {
+            row += " " + arr[i][j] + " "
+        }
+        console.log(row)
+    }
+}
+
 const generateMap = (width, height, bombs) => {
     if (width < 4) { // check values
         return "[ERR] width can not be less than 4"
@@ -48,11 +58,44 @@ const generateMap = (width, height, bombs) => {
         map[pos[0]][pos[1]] = 9
     }
 
-    console.log(bombsPositions)
+    for (let i = 0; i < map.length; i++ ) { // place number of bombs in cells
+        for (let j = 0; j < map[i].length; j++) {
+            if (map[i][j] != 9) {
+                let bombsAround = 0
+
+                if (i-1 >= 0 && j-1 >= 0) {
+                    if (map[i-1][j-1] == 9) bombsAround++
+                }
+                if (i-1 >= 0) {
+                    if (map[i-1][j] == 9) bombsAround++
+                }
+                if (i-1 >= 0 && j+1 < map[i].length) {
+                    if (map[i-1][j+1] == 9) bombsAround++
+                }
+                if (j-1 >= 0) {
+                    if (map[i][j-1] == 9) bombsAround++
+                }
+                if (j+1 < map[i].length) {
+                    if (map[i][j+1] == 9) bombsAround++
+                }
+                if (i+1 < map.length && j-1 >= 0) {
+                    if (map[i+1][j-1] == 9) bombsAround++
+                }
+                if (i+1 < map.length) {
+                    if (map[i+1][j] == 9) bombsAround++
+                }
+                if (i+1 < map.length && j+1 < map[i].length) {
+                    if (map[i+1][j+1] == 9) bombsAround++
+                }
+
+                map[i][j] = bombsAround
+            }
+        }
+    }
     return map
 }
 
-console.log(generateMap(6 , 6, 10))
+printMap(generateMap(10 , 10, 10))
 
 try { // fix this later
     module.exports.gm = generateMap
