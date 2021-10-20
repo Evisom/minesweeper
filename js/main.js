@@ -9,7 +9,7 @@ let flags = document.getElementById('flags')
 let gameParams = {
     width: 10,
     height: 10,
-    bombs: 5
+    bombs: 10
 }
 let map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
 let playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
@@ -142,6 +142,7 @@ const winCheck = () => {
     }
     document.getElementById("newgame").innerHTML = '<i class="far fa-grin-stars"></i>'
     clearInterval(interval)
+    mapElement.innerHTML+= '<div class="defeat"></div>'
 }
 
 const renderMap = () => {
@@ -197,7 +198,7 @@ const cellClick = (id) => {
     cellX = Math.floor(id/gameParams.width)
     cellY = id % gameParams.width
     openCells(cellX, cellY)
-    printMap(playerMap)
+    // printMap(playerMap)
     renderMap()
     winCheck()
 }
@@ -241,8 +242,6 @@ document.getElementById("newgame").onclick = () => {
     playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
     createMap()
     renderMap()
-    printMap(map)
+    // printMap(map)
     document.getElementById("newgame").innerHTML = '<i class="far fa-smile"></i>'
 }
-
-printMap(map)

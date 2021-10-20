@@ -1,6 +1,6 @@
 * {
     box-sizing: border-box;
-    font-family: Arial;
+    font-family: 'JetBrains Mono', monospace;
 }
 
 body,html {
@@ -96,6 +96,13 @@ body,html {
     color: #576675
 }
 
+.cell:hover {
+    background: #78868f
+}
+.cell-open:hover {
+    background: white;
+}
+
 .cell1 {
     color: #1b85b8;
 }
@@ -166,4 +173,44 @@ body,html {
     font-size: 24px;
     text-align: center;
     min-width: 64px;
+}
+
+.title {
+    color: #576675;
+    font-size: 72px;
+    font-weight: 400;
+    margin-bottom: 32px;
+}
+
+.warning {
+    font-size: 16px;
+    color: #576675;
+    margin-top: 16px;
+}
+
+.author {
+    position: absolute;
+    bottom: 30px;
+    color: #576675;
+    text-align: center;
+}
+.author a {
+    color: #576675;
+}
+
+@media screen and (max-width:400px) {
+    .title {
+        font-size: 48px;
+        margin-bottom: 15px;
+    }
+    .warning {
+        margin-top: 8px;
+        font-size: 14px;
+    }
+    .author {
+        position: relative;
+        bottom: unset;
+        font-size: 14px;
+        margin-top: 16px
+    }
 }

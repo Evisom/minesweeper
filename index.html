@@ -7,9 +7,13 @@
     <title>Minesweeper</title>
     <link rel="stylesheet" href="./css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="wrapper">
+        <div class="title">Minesweeper</div>
         <div class="game">
             <div class="controls">
                 <div class="inputs">
@@ -34,6 +38,16 @@
             <div id="map" class="map">
 
             </div>
+        </div>
+        <div class="warning">
+            Do not enter large numbers
+            <br>
+            The game is not finished yet
+        </div>
+
+        <div class="author">
+            <div>Developed by <a href="https://github.com/evisom"> Dmitriy Shishmintsev</a></span>
+            <div>2021</span>
         </div>
     </div>
     <script src="./js/generateMap.js"></script>
