@@ -222,6 +222,7 @@ const rightClick = (event, id) => {
 
 document.getElementById("newgame").onclick = () => {
     isFirstClick = true
+    flags.innerHTML = gameParams.bombs
     time.innerHTML = '00'
     w = document.getElementById("width").value
     h = document.getElementById("height").value
