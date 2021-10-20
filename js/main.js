@@ -1,11 +1,16 @@
-const gameParams = {
+let mapElement = document.getElementById("map")
+let cells = document.getElementsByClassName("cell")
+
+let gameParams = {
     width: 10,
     height: 10,
     bombs: 10
 }
-const map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
+let map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
 let playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
-
+if (map[0] == false) {
+    alert(map[1])
+}
 const open = (x, y) => {
     playerMap[x][y] = map[x][y]
 }
@@ -92,9 +97,68 @@ const openCells = (x, y) => {
     }
 }
 
+const createMap = () => {
+    mapElement.innerHTML = ''
+    for (let i=0; i < gameParams.width*gameParams.height; i++) {
+        mapElement.innerHTML += '<div class="cell" id="c'+i + '"></div>'
+    }
+    mapElement.setAttribute('style', 'grid-template-columns: repeat('+ gameParams.width + ' , 1fr);');
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener('click', () => cellClick(i), false)
+    }
+}
+createMap()
+
+
+const renderMap = () => {
+    for (let i = 0; i < playerMap.length; i++) {
+        for (let j = 0; j < playerMap[i].length; j++) {
+            id = 'c' + (i*gameParams.width+j)
+            if (playerMap[i][j] == 0) {
+                // document.getElementById(id).innerHTML = 0
+                document.getElementById(id).className += ' cell-open'
+            } else if (playerMap[i][j] == 9) {
+                console.log("defeat")
+            } else if (playerMap[i][j] > 0) {
+                document.getElementById(id).innerHTML = playerMap[i][j]
+                document.getElementById(id).className += ' cell-open'
+            } else {
+                document.getElementById(id).innerHTML = ''
+                document.getElementById(id).className = 'cell'
+            }
+        }
+    }
+}
+
+const cellClick = (id) => {
+    cellX = Math.floor(id/gameParams.width)
+    cellY = id % gameParams.width
+    openCells(cellX, cellY)
+    printMap(playerMap)
+    renderMap()
+}
+
+document.getElementById("newgame").onclick = () => {
+    w = document.getElementById("width").value
+    h = document.getElementById("height").value
+    b = document.getElementById("bombs").value
+    if (w && h && b) {
+        if (w >= 4 && h > 4 && w*h > b) {
+            gameParams = {
+                width: w,
+                height: h,
+                bombs: b
+            }
+        } else {
+            alert("Invalid parameters. Used default")
+        }
+    }
+    mapElement = document.getElementById("map")
+    map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
+    playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
+    createMap()
+    renderMap()
+    printMap(map)
+}
+
 printMap(map)
-console.log("\n")
-printMap(playerMap)
-openCells(2, 2)
-console.log("\n")
-printMap(playerMap)

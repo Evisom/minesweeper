@@ -5,10 +5,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper</title>
+    <link rel="stylesheet" href="./css/main.css">
 </head>
 <body>
-    <h4>minesweeper</h4>
+    <div class="wrapper">
+        <div class="game">
+            <div class="controls">
+                <input type="number" id="width" placeholder="width">
+                <input type="number" id="height" placeholder="height">
+                <input type="bombs" id="bombs" placeholder="bombs">
+                <button id="newgame">New game</button>
+            </div>
+            <div id="map" class="map">
 
+            </div>
+        </div>
+    </div>
     <script src="./js/generateMap.js"></script>
     <script src="./js/main.js"></script>
 </body>
