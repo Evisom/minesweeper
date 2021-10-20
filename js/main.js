@@ -4,7 +4,7 @@ let cells = document.getElementsByClassName("cell")
 let gameParams = {
     width: 10,
     height: 10,
-    bombs: 10
+    bombs: 5
 }
 let map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
 let playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
@@ -123,6 +123,17 @@ const defeat = () => {
     return 0
 }
 
+const winCheck = () => {
+    for (let i = 0; i<map.length; i++) {
+        for (let j = 0; j<map[i].length; j++) {
+            if (playerMap[i][j] == -1 && map[i][j] != 9) {
+                return
+            }
+        }
+    }
+    alert("You win!")
+}
+
 const renderMap = () => {
     for (let i = 0; i < playerMap.length; i++) {
         for (let j = 0; j < playerMap[i].length; j++) {
@@ -149,6 +160,7 @@ const cellClick = (id) => {
     openCells(cellX, cellY)
     printMap(playerMap)
     renderMap()
+    winCheck()
 }
 
 document.getElementById("newgame").onclick = () => {
