@@ -109,6 +109,19 @@ const createMap = () => {
 }
 createMap()
 
+const defeat = () => {
+    for (let i = 0; i<map.length; i++) {
+        for (let j = 0; j<map[i].length; j++) {
+            if (map[i][j] == 9) {
+                id = 'c' + (i*gameParams.width+j)
+                document.getElementById(id).innerHTML = 9
+                document.getElementById(id).className += ' cell-bomb'
+            }
+        }
+    }
+    mapElement.innerHTML+= '<div class="defeat"></div>'
+    return 0
+}
 
 const renderMap = () => {
     for (let i = 0; i < playerMap.length; i++) {
@@ -116,12 +129,12 @@ const renderMap = () => {
             id = 'c' + (i*gameParams.width+j)
             if (playerMap[i][j] == 0) {
                 // document.getElementById(id).innerHTML = 0
-                document.getElementById(id).className += ' cell-open'
+                document.getElementById(id).className = 'cell cell-open'
             } else if (playerMap[i][j] == 9) {
-                console.log("defeat")
+                return defeat()
             } else if (playerMap[i][j] > 0) {
                 document.getElementById(id).innerHTML = playerMap[i][j]
-                document.getElementById(id).className += ' cell-open'
+                document.getElementById(id).className = 'cell cell-open'
             } else {
                 document.getElementById(id).innerHTML = ''
                 document.getElementById(id).className = 'cell'
