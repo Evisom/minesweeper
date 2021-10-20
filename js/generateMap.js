@@ -9,12 +9,23 @@ const isUnique = (array , element) => { // function to check is bomb position un
 
 const printMap = (arr) => { // function that prints map in an understandable way
     for (let i = 0; i < arr.length; i++) {
-        let row = ""
+        let row = i + " | "
         for (let j = 0; j < arr[i].length; j++) {
             row += " " + arr[i][j] + " "
         }
         console.log(row)
     }
+}
+
+const createEmptyMap = (w, h, s) => {
+    let map = []
+    for (let i = 0; i < h; i++) { // create empty map
+        map.push([])
+        for (let j = 0; j < w; j++) {
+            map[i].push(s)
+        }
+    }
+    return map
 }
 
 const generateMap = (width, height, bombs) => {
@@ -34,13 +45,7 @@ const generateMap = (width, height, bombs) => {
         return [false, "[ERR] too much bombs"]
     }
 
-    let map = []
-    for (let i = 0; i < height; i++) { // create empty map
-        map.push([])
-        for (let j = 0; j < width; j++) {
-            map[i].push(0)
-        }
-    }
+    let map = createEmptyMap(width, height, 0)
 
     let bombsPositions = []
     for (let i = 0; i < bombs; i++) { // generate unique bomb positions
@@ -98,7 +103,7 @@ const generateMap = (width, height, bombs) => {
     return map
 }
 
-printMap(generateMap(10 , 10, 10))
+// printMap(generateMap(10 , 10, 10))
 
 try { // fix this later
     module.exports.gm = generateMap
