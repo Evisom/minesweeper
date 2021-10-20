@@ -6,15 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Minesweeper</title>
     <link rel="stylesheet" href="./css/main.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
 </head>
 <body>
     <div class="wrapper">
         <div class="game">
             <div class="controls">
-                <input type="number" id="width" placeholder="width">
-                <input type="number" id="height" placeholder="height">
-                <input type="bombs" id="bombs" placeholder="bombs">
-                <button id="newgame">New game</button>
+                <div class="inputs">
+                    <input type="number" id="width" placeholder="Width">
+                    <input type="number" id="height" placeholder="Height">
+                    <input type="bombs" id="bombs" placeholder="Mines">
+                </div>
+                <div class="game-c">
+                     <div class="flags">
+                        <i class="fa fa-flag"></i>
+                        <div class="flag-value" id="flags"></div>
+                     </div>
+                     <div class="time">
+                        <i class="far fa-clock"></i>
+                         <div id ="time" class="time-value">
+                            00
+                         </div>
+                     </div>
+                    <button id="newgame"><i class="far fa-smile"></i></button>
+                </div>
             </div>
             <div id="map" class="map">
 

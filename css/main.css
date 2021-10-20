@@ -1,5 +1,6 @@
 * {
     box-sizing: border-box;
+    font-family: Arial;
 }
 
 body,html {
@@ -16,37 +17,115 @@ body,html {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: #c0d6e4;
 }
 
 .game {
-    border: 1px solid gray
+    border: 2px solid #576675;
+    padding: 16px;
+    background: #acc0cd;
+    max-width: 80%;
+    max-height: 80vw;
+    min-width: 358px;
+    min-height: 470px;
 }
 
 .map {
     position: relative;
     display: grid;
-    grid-template-rows: auto
+    grid-template-rows: auto;
+    border: 1px solid #576675;
+    overflow-x: auto;
+    overflow-y: auto;
+    max-height: 60vw;
+    min-height: 322px;
 }
 
 .cell {
-    width: 20px;
-    height: 20px;
-    border: 1px solid black;
-    background: lightgray;
+    width: 32px;
+    height: 32px;
+    border: 1px solid #576675;
+    background: #86959f;
     display: flex;
     justify-content: center;
     align-items: center;
+    font-weight: bold;
 }
 .cell-open {
     background: white;
 }
 
 .cell-bomb {
-    background: red;
+    background: #990000;
+}
+
+.cell i {
+    color: white;
 }
 
 .controls {
-    width: min-content;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 8px;
+}
+
+.inputs {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.controls input {
+    max-width: 100px;
+    padding: 14px 4px;
+    background: #c0d6e4;
+    outline: none;
+    border: 2px solid #576675;
+    border-radius: 0;
+    margin: 4px 0;
+}
+
+#newgame {
+    width: 100px;
+    height: 48px;
+    border: 2px solid #576675;
+    background: #c0d6e4;
+    font-size: 28px;
+    color: #576675
+}
+
+.cell1 {
+    color: #1b85b8;
+}
+
+.cell2 {
+    color:#559e83;
+}
+
+.cell3 {
+    color: #990000
+}
+
+.cell4 {
+    color: #003366
+}
+
+.cell5 {
+    color: #610000
+}
+
+.cell6 {
+    color: #468499
+}
+
+.cell7 {
+    color: #601e9e
+}
+
+.cell8 {
+    color: #420420
 }
 
 .defeat {
@@ -57,4 +136,34 @@ body,html {
     right: 0;
     width: 100%;
     height: 100%;
+}
+
+.game-c {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.flags, .time {
+    max-width: 100px;
+    height: 48px;
+    border: 2px solid #576675;
+    background: #c0d6e4;
+    color: #576675;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px;
+}
+
+.flag-value {
+    min-width: 64px;
+    font-size: 24px;
+    text-align: center;
+}
+
+.time-value {
+    font-size: 24px;
+    text-align: center;
+    min-width: 64px;
 }

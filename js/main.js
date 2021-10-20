@@ -1,14 +1,19 @@
 let mapElement = document.getElementById("map")
 let cells = document.getElementsByClassName("cell")
 
+let bombSymbol = '<i class="fa fa-bomb"></i>'
+let flagSymbol = '<i class="fa fa-flag"></i>'
+
+let flags = document.getElementById('flags')
+
 let gameParams = {
     width: 10,
     height: 10,
-    bombs: 10
+    bombs: 5
 }
 let map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
 let playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
-if (map[0] == false) {
+if (!map[0]) {
     alert(map[1])
 }
 const open = (x, y) => {
@@ -17,7 +22,6 @@ const open = (x, y) => {
 
 const openCells = (x, y) => {
     if (map[x][y] == 9) {
-        console.log("bomb")
         open(x,y)
         return false
     }
@@ -117,12 +121,14 @@ const defeat = () => {
         for (let j = 0; j<map[i].length; j++) {
             if (map[i][j] == 9) {
                 id = 'c' + (i*gameParams.width+j)
-                document.getElementById(id).innerHTML = 9
+                document.getElementById(id).innerHTML = bombSymbol
                 document.getElementById(id).className += ' cell-bomb'
             }
         }
     }
     mapElement.innerHTML+= '<div class="defeat"></div>'
+    document.getElementById("newgame").innerHTML = '<i class="far fa-frown"></i>'
+    clearInterval(interval)
     return 0
 }
 
@@ -134,7 +140,8 @@ const winCheck = () => {
             }
         }
     }
-    alert("You win!")
+    document.getElementById("newgame").innerHTML = '<i class="far fa-grin-stars"></i>'
+    clearInterval(interval)
 }
 
 const renderMap = () => {
@@ -148,9 +155,9 @@ const renderMap = () => {
                 return defeat()
             } else if (playerMap[i][j] > 0) {
                 document.getElementById(id).innerHTML = playerMap[i][j]
-                document.getElementById(id).className = 'cell cell-open'
+                document.getElementById(id).className = 'cell cell-open cell' + playerMap[i][j]
             } else if (playerMap[i][j] == 'f') {
-                document.getElementById(id).innerHTML = 'f'
+                document.getElementById(id).innerHTML = flagSymbol
             } else {
                 document.getElementById(id).innerHTML = ''
                 document.getElementById(id).className = 'cell'
@@ -158,8 +165,35 @@ const renderMap = () => {
         }
     }
 }
-
+let interval
+let time = document.getElementById('time')
+let isFirstClick = true
 const cellClick = (id) => {
+    if (isFirstClick) {
+        sec = 0
+        min = 0
+        interval = setInterval(function() {
+            if (sec == 60) {
+                min ++
+                sec = 0
+            }
+            if (min == 0) {
+                if (sec < 10) {
+                    time.innerHTML = '0' + sec;
+                } else {
+                    time.innerHTML = sec;
+                }
+            } else {
+                if (sec < 10) {
+                    time.innerHTML = min + ':' + '0' + sec;
+                } else {
+                    time.innerHTML = min + ':' + sec;
+                }
+            }
+            sec++
+        }, 1000);
+        isFirstClick = false
+    }
     cellX = Math.floor(id/gameParams.width)
     cellY = id % gameParams.width
     openCells(cellX, cellY)
@@ -168,21 +202,26 @@ const cellClick = (id) => {
     winCheck()
 }
 
+flags.innerHTML = gameParams.bombs
 const rightClick = (event, id) => {
     event.preventDefault();
     let cell = document.getElementById('c' + id)
     cellX = Math.floor(id/gameParams.width)
     cellY = id % gameParams.width
-    if (!cell.innerHTML) {
+    if (!cell.innerHTML && playerMap[cellX][cellY] != 0) {
         playerMap[cellX][cellY] = 'f'
-        cell.innerHTML = 'f'
-    } else if (cell.innerHTML == 'f') {
+        cell.innerHTML = flagSymbol
+        flags.innerHTML -= 1
+    } else if (cell.innerHTML == flagSymbol) {
         playerMap[cellX][cellY] = '-1'
         cell.innerHTML = ''
+        flags.innerHTML -= (-1)
     }
 }
 
 document.getElementById("newgame").onclick = () => {
+    isFirstClick = true
+    time.innerHTML = '00'
     w = document.getElementById("width").value
     h = document.getElementById("height").value
     b = document.getElementById("bombs").value
@@ -203,6 +242,7 @@ document.getElementById("newgame").onclick = () => {
     createMap()
     renderMap()
     printMap(map)
+    document.getElementById("newgame").innerHTML = '<i class="far fa-smile"></i>'
 }
 
 printMap(map)
