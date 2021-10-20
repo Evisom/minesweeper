@@ -4,7 +4,7 @@ let cells = document.getElementsByClassName("cell")
 let gameParams = {
     width: 10,
     height: 10,
-    bombs: 5
+    bombs: 10
 }
 let map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
 let playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
@@ -106,6 +106,9 @@ const createMap = () => {
     for (let i = 0; i < cells.length; i++) {
         cells[i].addEventListener('click', () => cellClick(i), false)
     }
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].addEventListener('contextmenu', (event) => rightClick(event, i), true)
+    }
 }
 createMap()
 
@@ -146,6 +149,8 @@ const renderMap = () => {
             } else if (playerMap[i][j] > 0) {
                 document.getElementById(id).innerHTML = playerMap[i][j]
                 document.getElementById(id).className = 'cell cell-open'
+            } else if (playerMap[i][j] == 'f') {
+                document.getElementById(id).innerHTML = 'f'
             } else {
                 document.getElementById(id).innerHTML = ''
                 document.getElementById(id).className = 'cell'
@@ -161,6 +166,20 @@ const cellClick = (id) => {
     printMap(playerMap)
     renderMap()
     winCheck()
+}
+
+const rightClick = (event, id) => {
+    event.preventDefault();
+    let cell = document.getElementById('c' + id)
+    cellX = Math.floor(id/gameParams.width)
+    cellY = id % gameParams.width
+    if (!cell.innerHTML) {
+        playerMap[cellX][cellY] = 'f'
+        cell.innerHTML = 'f'
+    } else if (cell.innerHTML == 'f') {
+        playerMap[cellX][cellY] = '-1'
+        cell.innerHTML = ''
+    }
 }
 
 document.getElementById("newgame").onclick = () => {
