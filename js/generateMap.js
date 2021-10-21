@@ -29,22 +29,6 @@ const createEmptyMap = (w, h, s) => {
 }
 
 const generateMap = (width, height, bombs) => {
-    if (!width || !height || !bombs) {
-        return [false, "[ERR] undefined values"]
-    }
-    if (width < 4) { // check values
-        return [false, "[ERR] width can not be less than 4"]
-    }
-    if (height < 4) {
-        return [false, "[ERR] height can not be less than 4"]
-    }
-    if (bombs <= 0) {
-        return [false, "[ERR] you need at least one bomb"]
-    }
-    if (width*height <= bombs) {
-        return [false, "[ERR] too much bombs"]
-    }
-
     let map = createEmptyMap(width, height, 0)
 
     let bombsPositions = []
@@ -63,7 +47,7 @@ const generateMap = (width, height, bombs) => {
 
     for (let i = 0; i < bombsPositions.length; i++) { // place bombs on their places
         let pos = bombsPositions[i]
-        map[pos[0]][pos[1]] = 9
+        map[pos[1]][pos[0]] = 9
     }
 
     for (let i = 0; i < map.length; i++ ) { // place number of bombs in cells
@@ -103,7 +87,7 @@ const generateMap = (width, height, bombs) => {
     return map
 }
 
-// printMap(generateMap(10 , 10, 10))
+// printMap(generateMap(20 , 10, 10))
 
 try { // fix this later
     module.exports.gm = generateMap

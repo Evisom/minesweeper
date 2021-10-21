@@ -208,9 +208,9 @@ body,html {
         font-size: 14px;
     }
     .author {
-        position: relative;
-        bottom: unset;
+        /* position: relative; */
+        /* bottom: unset; */
         font-size: 14px;
-        margin-top: 16px
+        /* margin-top: 16px */
     }
 }

@@ -13,9 +13,7 @@ let gameParams = {
 }
 let map = generateMap(gameParams.width , gameParams.height, gameParams.bombs)
 let playerMap = createEmptyMap(gameParams.width , gameParams.height , -1)
-if (!map[0]) {
-    alert(map[1])
-}
+
 const open = (x, y) => {
     playerMap[x][y] = map[x][y]
 }
@@ -224,18 +222,31 @@ document.getElementById("newgame").onclick = () => {
     isFirstClick = true
     flags.innerHTML = gameParams.bombs
     time.innerHTML = '00'
-    w = document.getElementById("width").value
-    h = document.getElementById("height").value
-    b = document.getElementById("bombs").value
+    let w = document.getElementById("width").value
+    let h = document.getElementById("height").value
+    let b = document.getElementById("bombs").value
     if (w && h && b) {
-        if (w >= 4 && h > 4 && w*h > b) {
+        let reportMsg = ''
+        if (w < 9) {
+            reportMsg+=('\nWidth must be more than 9')
+        }
+        if (h < 9) {
+            reportMsg+=('\nHeigh must be more than 9')
+        }
+        if (w*b*0.5 < b) {
+            reportMsg+=('\nToo much mines')
+        }
+        if (reportMsg.length != 0) {
+            alert(reportMsg + '\nUsed default values (10, 10, 10)')
+        } else {
             gameParams = {
                 width: w,
                 height: h,
                 bombs: b
             }
-        } else {
-            alert("Invalid parameters. Used default")
+            if (w > 25 || h > 25) {
+                alert("Large numbers can slow down the page")
+            }
         }
     }
     mapElement = document.getElementById("map")
